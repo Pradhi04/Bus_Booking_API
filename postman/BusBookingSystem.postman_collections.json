@@ -1,0 +1,72 @@
+{
+  "info": {
+    "name": "Bus Booking System API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "User Registration",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": { "raw": "{{base_url}}/api/auth/register", "host": ["{{base_url}}"], "path": ["api", "auth", "register"] },
+        "body": { "mode": "raw", "raw": "{ \"name\": \"John Doe\", \"email\": \"john@example.com\", \"password\": \"password123\" }" }
+      }
+    },
+    {
+      "name": "User Login",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": { "raw": "{{base_url}}/api/auth/login", "host": ["{{base_url}}"], "path": ["api", "auth", "login"] },
+        "body": { "mode": "raw", "raw": "{ \"email\": \"john@example.com\", \"password\": \"password123\" }" }
+      }
+    },
+    {
+      "name": "Get All Buses",
+      "request": {
+        "method": "GET",
+        "url": { "raw": "{{base_url}}/api/buses", "host": ["{{base_url}}"], "path": ["api", "buses"] }
+      }
+    },
+    {
+      "name": "Add Bus (Admin Only)",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Authorization", "value": "Bearer {{admin_token}}" }, { "key": "Content-Type", "value": "application/json" }],        
+        "url": { "raw": "{{base_url}}/api/buses", "host": ["{{base_url}}"], "path": ["api", "buses"] },
+        "body": { "mode": "raw", "raw": "{ \"name\": \"Express Bus\", \"number\": \"EXP123\", \"source\": \"New York\", \"destination\": \"Washington\", \"departureTime\": \"08:00 AM\", \"arrivalTime\": \"12:00 PM\", \"availableSeats\": 40, \"price\": 50 }" }
+      }
+    },
+    {
+      "name": "Update Bus (Admin Only)",
+      "request": {
+        "method": "PUT",
+        "header": [{ "key": "Authorization", "value": "Bearer {{admin_token}}" }, { "key": "Content-Type", "value": "application/json" }],
+        "url": { "raw": "{{base_url}}/api/buses/:id", "host": ["{{base_url}}"], "path": ["api", "buses", ":id"] },
+        "body": { "mode": "raw", "raw": "{ \"availableSeats\": 35 }" }
+      }
+    },
+    {
+      "name": "Search Available Buses",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{base_url}}/api/bookings/search?source=New York&destination=Washington",
+          "host": ["{{base_url}}"],
+          "path": ["api", "bookings", "search"],
+          "query": [{ "key": "source", "value": "New York" }, { "key": "destination", "value": "Washington" }]
+        }
+      }
+    },
+    {
+      "name": "Book a Bus",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }, { "key": "Content-Type", "value": "application/json" }],
+        "url": { "raw": "{{base_url}}/api/bookings/book", "host": ["{{base_url}}"], "path": ["api", "bookings", "book"] },
+        "body": { "mode": "raw", "raw": "{ \"busId\": \"1234567890\", \"seatsBooked\": 2 }" }
+      }
+    }
+  ]
+}
